@@ -10,7 +10,7 @@
     "preview": "vite preview",
 	"deploy": "gh-pages -d dist"
   },
-  "homepage": "https://TimmyBartelius.github.io/Gissa-Ordet-",
+  
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
