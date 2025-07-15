@@ -15,6 +15,7 @@ body{
 }
 .startBtn{
 	margin: 50px;
+	border: solid 5px;
 }
 .during-game{
 	display:flex;
@@ -40,12 +41,14 @@ body{
 	align-items: center;
 	color: green;
 	border: solid;
+	font-size: larger;
 }
 .pass{
 	margin: 15px;
 	color: red;
 	border: solid;
 	width: 300px;
+	font-size: larger;
 
 }
 .game-over{
@@ -61,5 +64,10 @@ body{
 }
 .next-game{
 	font-size: 40px;
-	border: dotted 5px;
+	border: solid 5px;
+}
+.back-toBtn{
+	margin: 20px;
+	font-size: 40px;
+	border: solid 5px;
 }

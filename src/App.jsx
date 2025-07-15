@@ -31,6 +31,16 @@ function App() {
 
 	const handlePass = () =>{
 		setCurrentWord(getRandomWord());
+	};
+
+	const backToStart = () =>{
+		setGameStarted(false);
+		setGameOver(false);
+		setScore(0);
+		setCurrentWord('');
+		setTimeLeft(0);
+		setDuration(60);
+
 	}
 
 	const handleDurationChange = (e) => {
@@ -59,8 +69,8 @@ function App() {
 			{!gameStarted && !gameOver && (<div className="time">
 			<label>Speltid: </label>
 			<select className="time" onChange={handleDurationChange} value={duration}>
-				<option value={30}>30 SEKUNDER</option>
-				<option value={60}>60 SEKUNDER</option>
+				<option value={30}>30 Sekunder</option>
+				<option value={60}>60 Sekunder</option>
 			</select>
 			<button className="startBtn" onClick={startGame}>Starta spelet!</button>
 			</div>
@@ -81,6 +91,7 @@ function App() {
 			<h2 className="time-end">Tiden är ute!</h2>
 			<h3 className="total-score">Total Poäng: {score}</h3>
 			<button className="next-game" onClick={startGame}>Spela igen</button>
+			<button className="back-toBtn" onClick={backToStart}>Gå tillbaka till start</button>
 			</div>
 		)}
 
