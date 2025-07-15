@@ -1,11 +1,10 @@
 const ghpages = require('gh-pages');
 
-ghpages.publish('dist', {
-  branch: 'gh-pages',
+ghpages.publish('dist', 'gh-pages', {
   repo: 'https://github.com/TimmyBartelius/Gissa-Ordet.git',
   user: {
     name: 'Timmy Bartelius',
-    email: 'timmy.bartelius1@gmail.com'
+    email: 'din.email@exempel.se'
   },
   message: 'Deploy via script'
 }, function (err) {
