@@ -1,42 +1,73 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body{
+	display: flex;
+	flex-direction: column;
 }
+.title{
+	text-align: center;
+	font-size: 40px;
+	color: rgb(222, 160, 35);
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
+}
+.time{
+	text-align: center;
+	font-size: 35px;
+	margin: 10px;
+}
+.startBtn{
+	margin: 50px;
+	border: solid 5px;
+}
+.during-game{
+	display:flex;
+	flex-direction: column;
+	justify-self: center;
+}
+.word-display{
+	text-align: center;
+	font-size: 50px;
+	padding: 10px;
+	border: solid white 5px;
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.time-left{
+	text-align: center;
+	font-size: 25px;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.current-score{
+	text-align: center;
+	font-size: 25px;
 }
+.correct-guess{
+	align-items: center;
+	color: green;
+	border: solid;
+	font-size: larger;
+}
+.pass{
+	margin: 15px;
+	color: red;
+	border: solid;
+	width: 300px;
+	font-size: larger;
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.game-over{
+	display: flex;
+	flex-direction: column;
 }
-
-.card {
-  padding: 2em;
+.time-end{
+	text-align: center;
 }
-
-.read-the-docs {
-  color: #888;
+.total-score{
+	text-align: center;
+	font-size: xx-large;
+}
+.next-game{
+	font-size: 40px;
+	border: solid 5px;
+}
+.back-toBtn{
+	margin: 20px;
+	font-size: 40px;
+	border: solid 5px;
 }
