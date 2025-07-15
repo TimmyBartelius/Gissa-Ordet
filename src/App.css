@@ -3,9 +3,10 @@ body{
 	flex-direction: column;
 }
 .title{
-	margin: 10px;
+	text-align: center;
 	font-size: 40px;
-	color: rgb(171, 38, 38)
+	color: rgb(222, 160, 35);
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
 }
 .time{
 	text-align: center;
@@ -29,7 +30,7 @@ body{
 }
 .time-left{
 	text-align: center;
-	font-size: 40px;
+	font-size: 25px;
 }
 .current-score{
 	text-align: center;
@@ -37,7 +38,28 @@ body{
 }
 .correct-guess{
 	align-items: center;
-	font-size: 35px;
-	height: 150px;
+	color: green;
+	border: solid;
+}
+.pass{
+	margin: 15px;
+	color: red;
+	border: solid;
 	width: 300px;
+
+}
+.game-over{
+	display: flex;
+	flex-direction: column;
+}
+.time-end{
+	text-align: center;
+}
+.total-score{
+	text-align: center;
+	font-size: xx-large;
+}
+.next-game{
+	font-size: 40px;
+	border: dotted 5px;
 }

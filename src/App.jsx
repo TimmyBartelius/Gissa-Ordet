@@ -29,6 +29,10 @@ function App() {
 		setCurrentWord(getRandomWord());
 	};
 
+	const handlePass = () =>{
+		setCurrentWord(getRandomWord());
+	}
+
 	const handleDurationChange = (e) => {
 		setDuration(Number(e.target.value));
 	};
@@ -50,7 +54,7 @@ function App() {
 	}, [gameStarted, timeLeft]);
 	return (
 		<div>
-			<h1 className="title">Med Andra Ord</h1>
+			<h1 className="title">Gissa Ordet</h1>
 
 			{!gameStarted && !gameOver && (<div className="time">
 			<label>Speltid: </label>
