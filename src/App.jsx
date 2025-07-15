@@ -25,7 +25,7 @@ function App() {
 	};
 
 	const handleCorrectGuess = () =>{
-		setScore(prec => prev +1);
+		setScore(prev => prev +1);
 		setCurrentWord(getRandomWord());
 	};
 
@@ -54,7 +54,7 @@ function App() {
 
 			{!gameStarted && !gameOver && (<div className="time">
 			<label>Speltid: </label>
-			<select onChange={handleDurationChange} value={duration}>
+			<select className="time" onChange={handleDurationChange} value={duration}>
 				<option value={30}>30 SEKUNDER</option>
 				<option value={60}>60 SEKUNDER</option>
 			</select>
@@ -67,7 +67,8 @@ function App() {
 			<h2 className="word-display">{currentWord}</h2>
 			<p className="time-left">Tid kvar: {timeLeft} sek!</p>
 			<p className="current-score">Poäng: {score}</p>
-			<button className="correct-guess" onClick={handleCorrectGuess}>Rätt Gissat!</button>
+			<button className="correct-guess" onClick={handleCorrectGuess}>Nästa ord</button>
+			<button className="pass" onClick={handlePass}>Pass</button>
 			</div>
 		)}
 
