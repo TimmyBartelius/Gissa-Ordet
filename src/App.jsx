@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { words } from './words';
+import { words2 } from './words2';
+import { words3 } from './words3';
 import './App.css';
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
 	}, []);
 
 	const getRandomWord = () => {
-		const randomIndex = Math.floor(Math.random() * words.length);
+		const randomIndex = Math.floor(Math.random() * words.length * words2.length * words3.length);
 		return words[randomIndex];
 	};
 
@@ -95,6 +97,7 @@ function App() {
 				<div className="time">
 					<label>Speltid: </label>
 					<select className="time" onChange={handleDurationChange} value={duration}>
+						<option value={10}>10 Sekunder</option>
 						<option value={30}>30 Sekunder</option>
 						<option value={60}>60 Sekunder</option>
 					</select>
