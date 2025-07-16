@@ -20,8 +20,9 @@ function App() {
 	}, []);
 
 	const getRandomWord = () => {
-		const randomIndex = Math.floor(Math.random() * words.length * words2.length * words3.length);
-		return words[randomIndex];
+		const allWords = [...words, ...words2, ...words3]; 
+		const randomIndex = Math.floor(Math.random() * allWords.length)
+		return allWords[randomIndex];
 	};
 
 	const startGame = () => {
