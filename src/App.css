@@ -41,14 +41,16 @@ body{
 	align-items: center;
 	color: green;
 	border: solid;
-	font-size: larger;
+	font-size: xx-large;
+	padding: 30px;
 }
 .pass{
 	margin: 15px;
+	padding: 30px;
 	color: red;
 	border: solid;
 	width: 300px;
-	font-size: larger;
+	font-size: x-large;
 
 }
 @keyframes blink {
