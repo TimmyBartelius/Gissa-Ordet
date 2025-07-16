@@ -87,6 +87,8 @@ function App() {
 					<select className="time" onChange={handleDurationChange} value={duration}>
 						<option value={30}>30 Sekunder</option>
 						<option value={60}>60 Sekunder</option>
+						<option value={10}>10 Sekunder</option>
+						<option value={80}>80 Sekunder</option>
 					</select>
 					<button className="startBtn" onClick={startGame}>Starta spelet!</button>
 				</div>
