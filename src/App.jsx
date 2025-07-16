@@ -14,6 +14,7 @@ function App() {
 	const [shouldBlink, setShouldBlink] = useState(false);
 
 	const audioRef = useRef(null);
+	const lastWordRef = useRef(''); // Här sparar vi senaste ordet
 
 	// Initiera ljudobjektet EN gång
 	useEffect(() => {
@@ -21,9 +22,14 @@ function App() {
 	}, []);
 
 	const getRandomWord = () => {
-		const allWords = [...words, ...words2, ...words3]; 
-		const randomIndex = Math.floor(Math.random() * allWords.length)
-		return allWords[randomIndex];
+		const allWords = [...words, ...words2, ...words3];
+		let newWord;
+		do {
+			const randomIndex = Math.floor(Math.random() * allWords.length);
+			newWord = allWords[randomIndex];
+		} while (newWord === lastWordRef.current);  // Undvik samma ord två gånger i rad
+		lastWordRef.current = newWord;
+		return newWord;
 	};
 
 	const startGame = () => {
@@ -60,7 +66,7 @@ function App() {
 						console.log('🔔 Spelar ljud...');
 						audioRef.current.play().catch(err => console.error('Ljudfel:', err));
 					}
-					setTimeout(()=>{
+					setTimeout(() => {
 						setShouldBlink(false);
 					}, 1500);
 
