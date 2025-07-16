@@ -1,0 +1,1 @@
+const stopSound = new Audio('D:\Kodning_VS\Gissa-ordet\src\assets\Classic Alarm Clock - Sound Effect  ProSounds.mp3')

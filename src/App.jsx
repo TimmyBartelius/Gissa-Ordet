@@ -55,6 +55,9 @@ function App() {
 					clearInterval(interval);
 					setGameStarted(false);
 					setGameOver(true);
+
+					stopSound.play().catch(err => console.error('Ljudfel:', err));
+
 					return 0;
 				}
 				return prev - 1;
