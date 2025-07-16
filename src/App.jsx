@@ -11,7 +11,7 @@ function App() {
 	const [duration, setDuration] = useState(60);
 	const [gameOver, setGameOver] = useState(false);
 
-	const stopSoundRef = useRef(null); // <-- Referens till ljudet
+	const stopSoundRef = useRef(null); // 🔊 Referens till ljudet
 
 	useEffect(() => {
 		// Initiera ljudobjektet EN gång
@@ -29,6 +29,18 @@ function App() {
 		setCurrentWord(getRandomWord());
 		setGameStarted(true);
 		setGameOver(false);
+
+		// 🔓 Ljudupplåsning: spela tyst ljud för att få tillstånd
+		if (stopSoundRef.current) {
+			stopSoundRef.current.volume = 0;
+			stopSoundRef.current.play()
+				.then(() => {
+					stopSoundRef.current.pause();
+					stopSoundRef.current.currentTime = 0;
+					stopSoundRef.current.volume = 1; // Återställ volymen
+				})
+				.catch(err => console.error('Ljudupplåsning misslyckades:', err));
+		}
 	};
 
 	const handleCorrectGuess = () => {
@@ -63,7 +75,7 @@ function App() {
 					setGameStarted(false);
 					setGameOver(true);
 
-					// 🔊 Spela stoppljudet när tiden är slut
+					// 🔊 Spela upp stoppljud när tiden är slut
 					if (stopSoundRef.current) {
 						stopSoundRef.current.play().catch(err => console.error('Ljudfel:', err));
 					}
@@ -87,8 +99,6 @@ function App() {
 					<select className="time" onChange={handleDurationChange} value={duration}>
 						<option value={30}>30 Sekunder</option>
 						<option value={60}>60 Sekunder</option>
-						<option value={10}>10 Sekunder</option>
-						<option value={80}>80 Sekunder</option>
 					</select>
 					<button className="startBtn" onClick={startGame}>Starta spelet!</button>
 				</div>
