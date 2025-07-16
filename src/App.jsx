@@ -97,6 +97,7 @@ function App() {
 				<div className="time">
 					<label>Speltid: </label>
 					<select className="time" onChange={handleDurationChange} value={duration}>
+						<option value={10}>10 Sekunder</option>
 						<option value={30}>30 Sekunder</option>
 						<option value={60}>60 Sekunder</option>
 					</select>
