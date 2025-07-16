@@ -61,17 +61,27 @@ body{
 	animation: blink 0.5s ease-in-out 3;
 }
 .time-end{
+	display: flex;
+	flex-direction: column;
 	text-align: center;
 }
 .total-score{
+	display: flex;
+	flex-direction: column;
 	text-align: center;
 	font-size: xx-large;
 }
 .next-game{
+	display: flex;
+	flex-direction: column;
+	justify-self: center; 
 	font-size: 40px;
 	border: solid 5px;
 }
 .back-toBtn{
+	display: flex;
+	flex-direction: column;
+	justify-self: center; 
 	margin: 20px;
 	font-size: 40px;
 	border: solid 5px;
