@@ -10,7 +10,7 @@ function App() {
 	const [timeLeft, setTimeLeft] = useState(0);
 	const [duration, setDuration] = useState(60);
 	const [gameOver, setGameOver] = useState(false);
-	const stopSound = new Audio('D:\Kodning_VS\Gissa-ordet\src\assets\Classic Alarm Clock - Sound Effect  ProSounds.mp3')
+	const stopSound = new Audio('public\Alarm.mp3')
 
 	const getRandomWord = () => {
 		const randomIndex = Math.floor(Math.random() * words.length);
