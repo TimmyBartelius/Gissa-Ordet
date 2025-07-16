@@ -11,6 +11,7 @@ function App() {
 	const [timeLeft, setTimeLeft] = useState(0);
 	const [duration, setDuration] = useState(60);
 	const [gameOver, setGameOver] = useState(false);
+	const [shouldBlink, setShouldBlink] = useState(false);
 
 	const audioRef = useRef(null);
 
@@ -52,12 +53,16 @@ function App() {
 					clearInterval(interval);
 					setGameStarted(false);
 					setGameOver(true);
+					setShouldBlink(true);
 
 					// 🔊 Spela upp ljudet
 					if (audioRef.current) {
 						console.log('🔔 Spelar ljud...');
 						audioRef.current.play().catch(err => console.error('Ljudfel:', err));
 					}
+					setTimeout(()=>{
+						setShouldBlink(false);
+					}, 1500);
 
 					return 0;
 				}
@@ -117,7 +122,7 @@ function App() {
 			)}
 
 			{gameOver && (
-				<div className="game-over">
+				<div className={shouldBlink ? 'blink-screen' : ''}>
 					<h2 className="time-end">Tiden är ute!</h2>
 					<h3 className="total-score">Total Poäng: {score}</h3>
 					<button className="next-game" onClick={startGame}>Spela igen</button>
