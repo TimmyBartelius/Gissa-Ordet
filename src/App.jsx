@@ -12,32 +12,31 @@ function App() {
 	const [duration, setDuration] = useState(60);
 	const [gameOver, setGameOver] = useState(false);
 	const [shouldBlink, setShouldBlink] = useState(false);
+
 	const usedWordsRef = useRef(new Set());
-
 	const audioRef = useRef(null);
-	const lastWordRef = useRef(''); // Här sparar vi senaste ordet
+	const lastWordRef = useRef('');
 
-	// Initiera ljudobjektet EN gång
+	// Initiera ljud
 	useEffect(() => {
 		audioRef.current = new Audio('/alarm.mp3');
 	}, []);
 
+	// Tangentbordslyssnare (mellanslag = korrekt gissning)
 	useEffect(() => {
-		const handleKeyDown = (e) =>{
-			if(e.code === 'Space' && gameStarted) {
-				e.preventDefault(); //Hindra sidan från att scrolla
+		const handleKeyDown = (e) => {
+			if (e.code === 'Space' && gameStarted) {
+				e.preventDefault();
 				handleCorrectGuess();
 			}
 		};
-
-		window-addEventListener('keydown', handleKeyDown);
+		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
 	}, [gameStarted]);
 
 	const getRandomWord = () => {
 		const allWords = [...words, ...words2, ...words3];
-
-		if (usedWordsRef.current.size === allWords.length){
+		if (usedWordsRef.current.size === allWords.length) {
 			usedWordsRef.current.clear();
 		}
 
@@ -47,8 +46,9 @@ function App() {
 			const randomIndex = Math.floor(Math.random() * allWords.length);
 			newWord = allWords[randomIndex];
 			tries++;
-			if (tries > 100) break; //Undvik oändlig loop
+			if (tries > 100) break;
 		} while (usedWordsRef.current.has(newWord));
+
 		usedWordsRef.current.add(newWord);
 		lastWordRef.current = newWord;
 		return newWord;
@@ -60,9 +60,9 @@ function App() {
 		setCurrentWord(getRandomWord());
 		setGameStarted(true);
 		setGameOver(false);
-		usedWordsRef.current.clear(); //rensa vid ny omgång
+		usedWordsRef.current.clear();
 
-		// "Ljudupplåsning" – spela ljudet tyst och stoppa
+		// "Ljudupplåsning"
 		if (audioRef.current) {
 			audioRef.current.volume = 0;
 			audioRef.current.play().then(() => {
@@ -84,11 +84,11 @@ function App() {
 					setGameOver(true);
 					setShouldBlink(true);
 
-					// 🔊 Spela upp ljudet
 					if (audioRef.current) {
 						console.log('🔔 Spelar ljud...');
 						audioRef.current.play().catch(err => console.error('Ljudfel:', err));
 					}
+
 					setTimeout(() => {
 						setShouldBlink(false);
 					}, 1500);
