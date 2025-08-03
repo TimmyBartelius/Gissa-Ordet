@@ -12,22 +12,44 @@ function App() {
 	const [duration, setDuration] = useState(60);
 	const [gameOver, setGameOver] = useState(false);
 	const [shouldBlink, setShouldBlink] = useState(false);
+	const usedWordsRef = useRef(new Set());
 
 	const audioRef = useRef(null);
 	const lastWordRef = useRef(''); // Här sparar vi senaste ordet
 
 	// Initiera ljudobjektet EN gång
 	useEffect(() => {
-		audioRef.current = new Audio('/Alarm.mp3');
+		audioRef.current = new Audio('/alarm.mp3');
 	}, []);
+
+	useEffect(() => {
+		const handleKeyDown = (e) =>{
+			if(e.code === 'Space' && gameStarted) {
+				e.preventDefault(); //Hindra sidan från att scrolla
+				handleCorrectGuess();
+			}
+		};
+
+		window-addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	}, [gameStarted]);
 
 	const getRandomWord = () => {
 		const allWords = [...words, ...words2, ...words3];
+
+		if (usedWordsRef.current.size === allWords.length){
+			usedWordsRef.current.clear();
+		}
+
 		let newWord;
+		let tries = 0;
 		do {
 			const randomIndex = Math.floor(Math.random() * allWords.length);
 			newWord = allWords[randomIndex];
-		} while (newWord === lastWordRef.current);  // Undvik samma ord två gånger i rad
+			tries++;
+			if (tries > 100) break; //Undvik oändlig loop
+		} while (usedWordsRef.current.has(newWord));
+		usedWordsRef.current.add(newWord);
 		lastWordRef.current = newWord;
 		return newWord;
 	};
@@ -38,6 +60,7 @@ function App() {
 		setCurrentWord(getRandomWord());
 		setGameStarted(true);
 		setGameOver(false);
+		usedWordsRef.current.clear(); //rensa vid ny omgång
 
 		// "Ljudupplåsning" – spela ljudet tyst och stoppa
 		if (audioRef.current) {
