@@ -7,6 +7,9 @@ body{
 	font-size: 40px;
 	color: rgb(222, 160, 35);
 	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
+	border: solid 3px rgb(222, 160, 35);
+	border-radius: 20px;
+	padding: 10px;
 }
 .time{
 	text-align: center;
@@ -16,6 +19,7 @@ body{
 .startBtn{
 	margin: 50px;
 	border: solid 5px;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
 }
 .during-game{
 	display:flex;
@@ -24,38 +28,42 @@ body{
 }
 .word-display{
 	text-align: center;
-	font-size: 50px;
-	padding: 10px;
-	border: solid white 5px;
+	font-size: 60px;
+	padding: 20px;
+	border: solid 5px rgb(222, 160, 35);
 
 }
 .time-left{
 	text-align: center;
 	font-size: 25px;
+	color: rgb(199, 80, 16)
 }
 .current-score{
 	text-align: center;
 	font-size: 25px;
+	color:rgb(199, 80, 16)
 }
 .correct-guess{
 	align-items: center;
-	color: green;
+	color: rgb(0, 129, 0);
 	border: solid;
 	font-size: xx-large;
 	padding: 30px;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
 }
 .pass{
 	margin: 15px;
 	padding: 30px;
-	color: red;
+	color: rgb(255, 0, 0);
 	border: solid;
 	width: 300px;
 	font-size: x-large;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
 
 }
 @keyframes blink {
-	0%, 100% {background-color: white}
-	50% {background-color: red}
+	0%, 100% {background-color: rgb(255, 255, 255)}
+	50% {background-color: rgb(247, 0, 0)}
 }
 .blink-screen{
 	display: flex;
@@ -78,7 +86,8 @@ body{
 	flex-direction: column;
 	justify-self: center; 
 	font-size: 40px;
-	border: solid 5px;
+	border: solid 5px rgb(222, 160, 35);
+
 }
 .back-toBtn{
 	display: flex;
@@ -86,5 +95,5 @@ body{
 	justify-self: center; 
 	margin: 20px;
 	font-size: 40px;
-	border: solid 5px;
+	border: solid 5px rgb(222, 160, 35);
 }
