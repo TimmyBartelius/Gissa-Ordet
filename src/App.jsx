@@ -19,7 +19,7 @@ function App() {
 
 	// Initiera ljud
 	useEffect(() => {
-		audioRef.current = new Audio('/alarm.mp3');
+		audioRef.current = new Audio(import.meta.env.BASE_URL + 'alarm.mp3');
 	}, []);
 
 	// Tangentbordslyssnare (mellanslag = korrekt gissning)
