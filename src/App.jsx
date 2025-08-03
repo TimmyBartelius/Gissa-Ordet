@@ -14,13 +14,7 @@ function App() {
 	const [shouldBlink, setShouldBlink] = useState(false);
 
 	const usedWordsRef = useRef(new Set());
-	const audioRef = useRef(null);
 	const lastWordRef = useRef('');
-
-	// Initiera ljud
-	useEffect(() => {
-		audioRef.current = new Audio(import.meta.env.BASE_URL + 'alarm.mp3');
-	}, []);
 
 	// Tangentbordslyssnare (mellanslag = korrekt gissning)
 	useEffect(() => {
@@ -61,16 +55,6 @@ function App() {
 		setGameStarted(true);
 		setGameOver(false);
 		usedWordsRef.current.clear();
-
-		// "Ljudupplåsning"
-		if (audioRef.current) {
-			audioRef.current.volume = 0;
-			audioRef.current.play().then(() => {
-				audioRef.current.pause();
-				audioRef.current.currentTime = 0;
-				audioRef.current.volume = 1;
-			}).catch(err => console.error('Ljudupplåsning misslyckades:', err));
-		}
 	};
 
 	useEffect(() => {
@@ -83,11 +67,6 @@ function App() {
 					setGameStarted(false);
 					setGameOver(true);
 					setShouldBlink(true);
-
-					if (audioRef.current) {
-						console.log('🔔 Spelar ljud...');
-						audioRef.current.play().catch(err => console.error('Ljudfel:', err));
-					}
 
 					setTimeout(() => {
 						setShouldBlink(false);
