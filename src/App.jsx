@@ -172,11 +172,12 @@ function App() {
 
       {gameOver && (
         <div className={shouldBlink ? "blink-screen" : ""}>
-          <h2 className="time-end">Tiden är ute!</h2>
-          <h3 className="total-score">Total Poäng: {score}</h3>
-          <button className="next-game" onClick={startGame}>
-            Spela igen
-          </button>
+          <h2 className="time-end">Spelet är slut!</h2>
+          {teams.map((team) => (
+            <h3 key={team.name}>
+              {team.name}: {team.score} poäng
+            </h3>
+          ))}
           <button className="back-toBtn" onClick={backToStart}>
             Gå tillbaka till start
           </button>
