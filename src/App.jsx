@@ -6,7 +6,6 @@ import "./App.css";
 
 function App() {
   const [currentWord, setCurrentWord] = useState("");
-  const [score, setScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
   const [duration, setDuration] = useState(60);
@@ -20,6 +19,7 @@ function App() {
   const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
   const [round, setRound] = useState(1);
   const [totalRounds, setTotalRounds] = useState(3);
+  const [isPaused, setIsPaused] = useState(false);
 
   const usedWordsRef = useRef(new Set());
   const lastWordRef = useRef("");
@@ -57,11 +57,11 @@ function App() {
   };
 
   const startGame = () => {
-    setScore(0);
     setTimeLeft(duration);
     setCurrentWord(getRandomWord());
     setGameStarted(true);
     setGameOver(false);
+    setIsPaused(false);
     usedWordsRef.current.clear();
   };
 
@@ -74,12 +74,9 @@ function App() {
           clearInterval(interval);
 
           if (round < totalRounds) {
-            // Byt lag och starta nästa omgång
-            setCurrentTeamIndex((currentTeamIndex + 1) % teams.length);
-            setRound((prev) => prev + 1);
-            setTimeLeft(duration);
-            setCurrentWord(getRandomWord());
-            setGameStarted(true);
+            // Pausläge innan nästa lag får köra
+            setGameStarted(false);
+            setIsPaused(true);
           } else {
             // Alla omgångar är spelade → visa slutresultat
             setGameStarted(false);
@@ -98,15 +95,7 @@ function App() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [
-    gameStarted,
-    timeLeft,
-    round,
-    totalRounds,
-    teams.length,
-    currentTeamIndex,
-    duration,
-  ]);
+  }, [gameStarted, timeLeft, round, totalRounds, duration]);
 
   const handleCorrectGuess = () => {
     setTeams((prevTeams) => {
@@ -124,22 +113,51 @@ function App() {
   const backToStart = () => {
     setGameStarted(false);
     setGameOver(false);
-    setScore(0);
     setCurrentWord("");
     setTimeLeft(0);
     setDuration(60);
+    setRound(1);
+    setCurrentTeamIndex(0);
+    setTeams([
+      { name: "Lag 1", score: 0 },
+      { name: "Lag 2", score: 0 },
+    ]);
   };
 
   const handleDurationChange = (e) => {
     setDuration(Number(e.target.value));
   };
 
+  const handleNextTeam = () => {
+    setIsPaused(false);
+    setCurrentTeamIndex((currentTeamIndex + 1) % teams.length);
+    setRound((prev) => prev + 1);
+    setTimeLeft(duration);
+    setCurrentWord(getRandomWord());
+    setGameStarted(true);
+  };
+
   return (
     <div>
       <h1 className="title">Gissa Ordet</h1>
 
-      {!gameStarted && !gameOver && (
+      {/* Startskärm */}
+      {!gameStarted && !gameOver && !isPaused && (
         <div className="time">
+          {teams.map((team, index) => (
+            <div key={index}>
+              <label>Lag {index + 1} namn: </label>
+              <input
+                type="text"
+                value={team.name}
+                onChange={(e) => {
+                  const newTeams = [...teams];
+                  newTeams[index].name = e.target.value;
+                  setTeams(newTeams);
+                }}
+              />
+            </div>
+          ))}
           <label>Speltid: </label>
           <select
             className="time"
@@ -156,11 +174,16 @@ function App() {
         </div>
       )}
 
+      {/* Under spelet */}
       {gameStarted && (
         <div className="during-game">
+          <h2>{teams[currentTeamIndex].name} spelar</h2>
           <h2 className="word-display">{currentWord}</h2>
           <p className="time-left">Tid kvar: {timeLeft} sek!</p>
-          <p className="current-score">Poäng: {score}</p>
+          <p className="current-score">
+            {teams[currentTeamIndex].name}: {teams[currentTeamIndex].score}{" "}
+            poäng
+          </p>
           <button className="correct-guess" onClick={handleCorrectGuess}>
             Nästa ord
           </button>
@@ -170,6 +193,19 @@ function App() {
         </div>
       )}
 
+      {/* Paus mellan rundor */}
+      {isPaused && !gameOver && (
+        <div>
+          <h2>Runda {round} klar!</h2>
+          <p>
+            {teams[currentTeamIndex].name} fick totalt{" "}
+            {teams[currentTeamIndex].score} poäng.
+          </p>
+          <button onClick={handleNextTeam}>Nästa lag</button>
+        </div>
+      )}
+
+      {/* Slutresultat */}
       {gameOver && (
         <div className={shouldBlink ? "blink-screen" : ""}>
           <h2 className="time-end">Spelet är slut!</h2>
